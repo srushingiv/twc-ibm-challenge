@@ -26,11 +26,18 @@ object FifthFromEnd {
     // probably the next simplest solution, then would be to use a fold...
     // I don't like this implementation much, as it creates tons of
     // intermediary objects in memory, but these can be garbage collected so
-    // it'll do for now.
+    // it'll work, but there's got to be a better way!
     
-    (list.foldLeft[(Option[T], Option[T], Option[T], Option[T], Option[T])]((None, None, None, None, None)) {
-      case ((a, b, c, d, e), value) => (Some(value), a, b, c, d)
-    })._5
+    // (list.foldLeft[(Option[T], Option[T], Option[T], Option[T], Option[T])]((None, None, None, None, None)) {
+    //  case ((a, b, c, d, e), value) => (Some(value), a, b, c, d)
+    //})._5
+    
+    // So, after thinking about this even more, over a few days, it hit me that
+    // when a Stream is evaluated, each element in it is only read once, but
+    // can be referenced many times. So, a final, elegant looking solution is:
+    
+    val s = list.toStream
+    (s drop 4 zip s lastOption) map (_._2)
   }
 
 }

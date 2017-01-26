@@ -20,6 +20,10 @@ case object ScaleneTriangle extends TriangleType { override def toString = "scal
 
 object TriangleType {
   
+  // This simple function let's us mix boolean algebra and integer math.
+  // It eill be used to determine how many pairs of sides are equal.
+  private implicit def bool2Int(b: Boolean): Int = if (b) 1 else 0
+  
   // The reason behind the "Length" type parameter is that a "Triangle" could
   // measure its sides as any type. In usage, this will most likely evaluate to
   // Double or Int, but who is to say that Chars or Strings (or anything else
@@ -35,11 +39,11 @@ object TriangleType {
    * equilateral, isosceles, or scalene.
    */
   def fromSides[Length](a: Length, b:Length, c:Length): TriangleType = {
-    def eq(x: Length, y: Length): Int = if (x == y) 1 else 0
-    (eq(a, b) + eq(b, c) + eq(c, a)) match {
+    ((a == b) + (b == c) + (c == a)) match {
       case 0 => ScaleneTriangle
       case 1 => IsoscelesTriangle 
       case _ => EquilateralTriangle
     }
   }
+
 }
