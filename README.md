@@ -11,3 +11,7 @@ Here is the assignment for the candidate:
 Requirements: All questions should have supporting unit tests and project file (maven, sbt, leiningen, gradle, etc.) to run. No external dependencies except testing framework (junit, scalatest, etc.), we should be able to unzip, download, or clone from external repo the source code, build, and run the unit tests. 
 
 ** If the candidate has any Scala or Clojure experience, we encourage them to write the homework questions in Scala or Clojure. Otherwise, any language is ok, Python, Java, Go, etc.. **
+
+# Usage
+
+`sbt test`
